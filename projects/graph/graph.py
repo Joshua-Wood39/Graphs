@@ -61,12 +61,19 @@ class Graph:
                 for neighbor in self.vertices[v]:
                     s.push(neighbor)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=set()):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         This should be done using recursion.
         """
+        if visited == set():
+            print(f"** {starting_vertex}")
+        visited.add(starting_vertex)
+        for v in self.vertices[starting_vertex]:
+            if v not in visited:
+                print(f"** {v}")
+                self.dft_recursive(v, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -74,7 +81,25 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        # use PATHS
+
+        q = Queue()
+
+        q.enqueue([starting_vertex])
+
+        visited = set()
+
+        while q.size() > 0:
+            p = q.dequeue()
+            v = p[-1]
+            if v not in visited:
+                if v == destination_vertex:
+                    return p
+                visited.add(v)
+                for neighbor in self.vertices[v]:
+                    new_p = list(p)
+                    new_p.append(neighbor)
+                    q.enqueue(new_p)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -82,7 +107,25 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        # also use PATHS
+
+        s = Stack()
+
+        s.push([starting_vertex])
+
+        visited = set()
+
+        while s.size() > 0:
+            p = s.pop()
+            v = p[-1]
+            if v not in visited:
+                if v == destination_vertex:
+                    return p
+                visited.add(v)
+                for neighbor in self.vertices[v]:
+                    new_p = list(p)
+                    new_p.append(neighbor)
+                    s.push(new_p)
 
 
 if __name__ == '__main__':
