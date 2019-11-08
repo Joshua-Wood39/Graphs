@@ -45,7 +45,7 @@ while len(room_count) < len(roomGraph):
     # get exits
     exits = current_room.getExits()
     valid_directions = []
-    print(f"current room: {current_room.id}")
+    # print(f"current room: {current_room.id}")
     # print(f"visited: {visited_directions}")
     # print(f"locked: {locked_directions}")
     for e in exits:
@@ -102,6 +102,9 @@ while len(room_count) < len(roomGraph):
         anomalies.append(current_room.id)
     if current_room.id == 138 and current_room.id not in anomalies:
         direction = "n"
+        anomalies.append(current_room.id)
+    if current_room.id == 5 and current_room.id not in anomalies:
+        direction = "w"
         anomalies.append(current_room.id)
 
     # print(f"direction chosen: {direction}")
